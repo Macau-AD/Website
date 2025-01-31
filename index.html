@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>macau.ad - 網站建置中</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;font-family:sans-serif;color:#fff;background:#000}
+.container{position:relative;width:100%;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+h1{font-size:2rem;margin-bottom:1rem;z-index:2;text-align:center}
+p{font-size:1rem;text-align:center;max-width:80%;line-height:1.5;margin-bottom:2rem;z-index:2}
+#starfield{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
+#cat{
+position:absolute;
+z-index:2;
+cursor:grab;
+width:150px;
+height:auto;
+top:200px;
+left:calc(50% - 75px);
+}
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div class="container">
+<h1>macau.ad</h1>
+<p>此域名已被註冊。未來可能用於廣告推廣。但現在架設中。</p>
+<svg id="cat" viewBox="0 0 500 500">
+<defs>
+<linearGradient id="catGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#FF0000">
+<animate attributeName="stop-color" values="#FF0000;#00FF00;#0000FF;#FF0000" dur="5s" repeatCount="indefinite"/>
+</stop>
+<stop offset="50%" stop-color="#00FF00">
+<animate attributeName="stop-color" values="#00FF00;#0000FF;#FF0000;#00FF00" dur="5s" repeatCount="indefinite"/>
+</stop>
+<stop offset="100%" stop-color="#0000FF">
+<animate attributeName="stop-color" values="#0000FF;#FF0000;#00FF00;#0000FF" dur="5s" repeatCount="indefinite"/>
+</stop>
+</linearGradient>
+</defs>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M411.7 89.1C393.2 100.9 380.3 123.1 371.2 159.2C364.7 180 349.8 212.1 342.9 217.6C339.6 219.7 320 221 273.1 223.7C238.1 224 196.1 225.7 179.9 227.6C152.9 228.3 151.5 229.6 129.8 218.1C112.7 210.9 105.7 205.4 104.2 201.1C101.3 194.1 95.4 190.4 86.3 189.8C84.6 189.6 82.1 193.7 83.2 199.2C82.9 207.3 79.8 211.7 75.2 218C69.6 221.3 64.2 229.4 61.3 235.2C60.3 236.1 53.9 241.2 55.9 246.5C56.4 249.7 61.5 254 62.2 253.3C66.6 258.3 72.4 261.1 79.2 260.4C100.9 261.3 114.7 279.9 116.5 311.8L117.3 330.5L99.3 350.6C61.9 390.2 59.6 393.1 61.4 397.6C64.6 406.6 74.4 402.1 89.9 388.6C98.5 381.1 108.2 373.2 112.8 370.3C118.3 368 130.1 361.3 138.7 354C148.1 345.7 159.2 340.2 162.3 341.6C176 344.5 182.3 388.2 170.6 403.2C162.9 414 166.1 418.2 180.3 416.3C193.9 414.9 196.9 406.7 199.7 365.8L202.9 329.8L243.4 330.8C266.4 332.2 288.8 334.3 291.7 336.1C303.3 340.2 316.3 359.4 317.4 367.9C316.2 378.3 309.4 386.8 296.6 392.3C289.6 394.9 286.2 398.2 286.9 402C286 407.8 288.2 408.7 298.3 407.9C310.4 408.2 326.9 398.3 342.4 380.3C352.4 368.1 352.3 368.2 348.8 351.3C343.1 336.8 348 331.9 361.4 339.8C365.7 343.2 380.2 347.6 393.1 352.7C410.7 357.5 416.4 361.9 419.4 367.2C422.9 375 424.5 387.9 421.4 401.4C421.7 405 422.6 406.7 428.8 407.5C441.2 409.5 444.3 404.8 443.4 389.2C443.9 380.5 440.8 366.4 438.7 355.3C433.1 339.6 430.3 334.6 419.8 326.7C405.2 314.7 402.3 308.5 392.7 282C389.3 272.9 385 259.8 381.7 253.3C373.8 239 374.3 231.2 383.5 207.4C388.1 195.7 395.9 176.2 398.9 164C404.2 142.1 412.6 124.4 425.4 102.8C432 92.1 431.3 84.4 425.3 83.3C423.1 84.6 416.7 86.9 411.5 89.2Z" fill="url(#catGradient)"/>
+</svg>
+</div>
+<script>
+document.addEventListener('selectstart', (event) => event.preventDefault());
+document.addEventListener('contextmenu', (event) => event.preventDefault());
+document.addEventListener('keydown', (event) => {if (event.ctrlKey && (event.key === 'c' || event.key === 'u')) {event.preventDefault();}if (event.key === 'F12') {event.preventDefault();}});
+let c=document.getElementById("starfield"),x=c.getContext("2d"),w,h,stars=[],numStars=150,orbs=[],numOrbs=20,mouseX=0,mouseY=0
+function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+window.addEventListener("resize",rs);rs()
+function isf(){stars=[];for(let i=0;i<numStars;i++){let sx=Math.random()*w,sy=Math.random()*h,sz=Math.random()*1.5+.5,sp=Math.random()*.5+.1;stars.push({x:sx,y:sy,size:sz,speed:sp})}}
+function iob(){orbs=[];for(let i=0;i<numOrbs;i++){let xx=Math.random()*w,yy=Math.random()*h,rr=Math.random()*10+5,vx=(Math.random()-.5)*.5,vy=(Math.random()-.5)*.5,cc=`hsl(${Math.random()*360},70%,60%)`;orbs.push({x:xx,y:yy,r:rr,vx:vx,vy:vy,color:cc})}}
+window.addEventListener("mousemove",e=>{mouseX=e.clientX;mouseY=e.clientY})
+function ds(){x.fillStyle="#fff";stars.forEach(s=>{x.beginPath();x.arc(s.x,s.y,s.size,0,2*Math.PI);x.fill()})}
+function us(){stars.forEach(s=>{s.y+=s.speed;if(s.y>h){s.y=0;s.x=Math.random()*w}})}
+function doo(){orbs.forEach(o=>{x.fillStyle=o.color;x.beginPath();x.arc(o.x,o.y,o.r,0,2*Math.PI);x.fill()})}
+function uo(){let rr=100,f=.02;orbs.forEach(o=>{let dx=o.x-mouseX,dy=o.y-mouseY,d=Math.sqrt(dx*dx+dy*dy);if(d<rr){let ux=dx/d,uy=dy/d;o.vx+=ux*f*(rr-d)/rr;o.vy+=uy*f*(rr-d)/rr}o.x+=o.vx;o.y+=o.vy;o.vx*=.98;o.vy*=.98;if(o.x-o.r<0){o.x=o.r;o.vx*=-1}if(o.x+o.r>w){o.x=w-o.r;o.vx*=-1}if(o.y-o.r<0){o.y=o.r;o.vy*=-1}if(o.y+o.r>h){o.y=h-o.r;o.vy*=-1}})}
+function an(){requestAnimationFrame(an);x.clearRect(0,0,w,h);us();ds();uo();doo()}
+isf();iob();an()
+let cat=document.getElementById("cat"),dragging=false,offX=0,offY=0
+cat.addEventListener("mousedown",e=>{dragging=true;cat.style.cursor="grabbing";let r=cat.getBoundingClientRect();offX=e.clientX-r.left;offY=e.clientY-r.top;e.preventDefault()})
+document.addEventListener("mousemove",e=>{if(dragging){cat.style.left=e.clientX-offX+"px";cat.style.top=e.clientY-offY+"px"}})
+document.addEventListener("mouseup",()=>{dragging=false;cat.style.cursor="grab"})
+</script>
+</body>
+</html>
